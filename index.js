@@ -1,4 +1,4 @@
-const { app } = require("./config/loader");
+const app = require("./config/loader");
 
 const port = process.env.PORT || 8000;
 app.listen(() => {
