@@ -3,7 +3,11 @@ const { categoryService } = require("../services");
 const getAll = async (req, res) => {
 	try {
 		const categories = await categoryService.getAllCategories();
-        res.status(200).json({status: "success", "Categories Fetch Successful"})
+		res.status(200).json({
+			status: "success",
+			message: "Categories Fetch Successful",
+			categories,
+		});
 	} catch (error) {
 		console.log({ error });
 		res.status(500).json({ status: "error", message: "Server Error" });
@@ -11,5 +15,5 @@ const getAll = async (req, res) => {
 };
 
 module.exports = {
-    getAll
-}
+	getAll,
+};

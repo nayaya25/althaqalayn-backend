@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 app.use(helmet());
 app.use(morgan("dev"));
 app.use(cors());
-app.disable("view cache");
+
 app.use(
 	fileUpload({
 		createParentPath: true,
