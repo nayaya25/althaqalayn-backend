@@ -1,14 +1,15 @@
 const app = require("./config/appLoader");
+
 const { categoryRoute, lectureRoute } = require("./routes");
 
 app.use("/api/category", categoryRoute);
 app.use("/api/lecture", lectureRoute);
 
-app.get("/", (req, res) => {
-	res.send("hi");
-});
+// app.get("/", (req, res) => {
+// 	res.send("Hi");
+// });
 
-const PORT = process.env.PORT || 5000;
-app.listen(() => {
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => {
 	console.log(`Listening on port ${PORT}`);
 });
