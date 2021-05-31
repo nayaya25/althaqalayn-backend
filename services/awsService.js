@@ -25,16 +25,13 @@ s3.createBucket(bucketCreateParam, function (err, data) {
 	}
 });
 
-const saveFileInBucket = (params) => {
+const saveFileInBucket = async (params) => {
 	return new Promise((resolve, reject) => {
-		// Uploading files to the bucket
 		s3.upload(params, function (err, data) {
 			if (err) {
 				console.log({ err });
 				return reject(err);
 			}
-			// console.log(data)
-			// console.log(`File uploaded successfully. ${data.Location}`)
 			return resolve(data);
 		});
 	});

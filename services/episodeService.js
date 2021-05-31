@@ -21,8 +21,8 @@ module.exports = {
 	},
 	async updateEpisode(episodeId, newData) {
 		try {
-			const updatedEpisode = await Episode.findByIdAndUpdate(
-				episodeId,
+			const updatedEpisode = await Episode.findOneAndUpdate(
+				{ _id: episodeId },
 				newData
 			);
 			updatedEpisode.save();
@@ -34,7 +34,7 @@ module.exports = {
 	},
 	async deleteEpisode(episodeId) {
 		try {
-			const deletedEpisode = await Lecture.findByIdAndDelete(episodeId);
+			const deletedEpisode = await Episode.findOneAndDelete({ _id: episodeId });
 			return deletedEpisode;
 		} catch (error) {
 			console.log({ error });

@@ -21,8 +21,8 @@ module.exports = {
 	},
 	async updateLecture(lectureId, newData) {
 		try {
-			const updatedLecture = await Lecture.findByIdAndUpdate(
-				lectureId,
+			const updatedLecture = await Lecture.findOneAndUpdate(
+				{ _id: lectureId },
 				newData
 			);
 			updatedLecture.save();
@@ -34,7 +34,7 @@ module.exports = {
 	},
 	async deleteLecture(lectureId) {
 		try {
-			const deletedLecture = await Lecture.findByIdAndDelete(lectureId);
+			const deletedLecture = await Lecture.findOneAndDelete({ _id: lectureId });
 			return deletedLecture;
 		} catch (error) {
 			console.log({ error });

@@ -21,8 +21,8 @@ module.exports = {
 	},
 	async updateCategory(categoryId, newData) {
 		try {
-			const updatedCategory = await Category.findByIdAndUpdate(
-				categoryId,
+			const updatedCategory = await Category.findOneAndUpdate(
+				{ _id: categoryId },
 				newData
 			);
 			updatedCategory.save();
@@ -33,9 +33,10 @@ module.exports = {
 		}
 	},
 	async deleteCategory(categoryId) {
-		console.log(categoryId);
 		try {
-			const deletedCategory = await Category.findByIdAndDelete(categoryId);
+			const deletedCategory = await Category.findOneAndDelete({
+				_id: categoryId,
+			});
 			return deletedCategory;
 		} catch (error) {
 			console.log({ error });
