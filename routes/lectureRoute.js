@@ -1,8 +1,18 @@
 const express = require("express");
 const router = express.Router();
 
-const { getAll } = require("../controllers/lectureController");
+const {
+	getAllLectures,
+	createLecture,
+	updateLecture,
+	deleteLecture,
+	getALecture,
+} = require("../controllers/lectureController");
 
-router.get("/", getAll);
+router.get("/", getAllLectures);
+router.get("/:id", getALecture);
+router.post("/:categoryId", createLecture);
+router.put("/:id", updateLecture);
+router.delete("/:id", deleteLecture);
 
 module.exports = router;

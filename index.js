@@ -1,9 +1,10 @@
 const app = require("./config/appLoader");
 
-const { categoryRoute, lectureRoute } = require("./routes");
+const { categoryRoute, lectureRoute, episodeRoute } = require("./routes");
 
 app.use("/api/category", categoryRoute);
 app.use("/api/lecture", lectureRoute);
+app.use("/api/episode", episodeRoute);
 
 // app.get("/", (req, res) => {
 // 	res.send("Hi");

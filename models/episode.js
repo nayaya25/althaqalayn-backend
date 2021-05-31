@@ -3,7 +3,7 @@ const db = require("../config/dbConnection");
 const schema = {
 	title: { type: db.SchemaTypes.String, required: true },
 	filePath: { type: db.SchemaTypes.String, required: true },
-	category: { type: db.SchemaTypes.ObjectId, ref: "Category" },
+	lecture: { type: db.SchemaTypes.ObjectId, ref: "Lecture" },
 	createdAt: { type: db.SchemaTypes.Date, default: Date.now },
 	updatedAt: { type: db.SchemaTypes.Date, default: Date.now },
 };

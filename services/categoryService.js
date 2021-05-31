@@ -42,4 +42,18 @@ module.exports = {
 			return {};
 		}
 	},
+	async findCategoryAndUpdate(id, data) {
+		const { id: lectureId } = data;
+		try {
+			const updatedCategory = await Category.findOneAndUpdate(
+				{ _id: id },
+				{ $push: { lectures: lectureId } },
+				{ new: true }
+			);
+			return updatedCategory;
+		} catch (error) {
+			console.log({ error });
+			return {};
+		}
+	},
 };

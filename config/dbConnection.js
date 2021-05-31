@@ -4,6 +4,8 @@ const { databaseConnString } = require("./envVariables");
 mongoose.connect(databaseConnString, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
+	useFindAndModify: false,
+	useCreateIndex: true,
 });
 
 const db = mongoose.connection;

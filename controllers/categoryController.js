@@ -1,3 +1,4 @@
+const { Category } = require("../models");
 const { categoryService } = require("../services");
 
 const getAllCategories = async (req, res) => {
@@ -62,9 +63,25 @@ const deleteCategory = async (req, res) => {
 	}
 };
 
+const getACategory = async (req, res) => {
+	const { id } = req.params;
+	try {
+		const category = await Category.findOne({ _id: id }).populate("lecture");
+		res.status(200).json({
+			status: "success",
+			message: "Category Fetch Successful",
+			category,
+		});
+	} catch (error) {
+		console.log({ error });
+		res.status(500).json({ status: "error", message: "Server Error" });
+	}
+};
+
 module.exports = {
 	getAllCategories,
 	createCategory,
 	updateCategory,
 	deleteCategory,
+	getACategory,
 };

@@ -1,7 +1,7 @@
 const { Lecture } = require("../models");
 
 module.exports = {
-	async getAllCategories() {
+	async getAllLectures() {
 		try {
 			const lectures = await Lecture.find();
 			return lectures;
@@ -10,10 +10,46 @@ module.exports = {
 			return [];
 		}
 	},
-	async createCategory(category) {
+	async createLecture(lecture) {
 		try {
-			const newCategory = Lecture.create(category);
-			return newCategory;
+			const newLecture = Lecture.create(lecture);
+			return newLecture;
+		} catch (error) {
+			console.log({ error });
+			return {};
+		}
+	},
+	async updateLecture(lectureId, newData) {
+		try {
+			const updatedLecture = await Lecture.findByIdAndUpdate(
+				lectureId,
+				newData
+			);
+			updatedLecture.save();
+			return updatedLecture;
+		} catch (error) {
+			console.log({ error });
+			return {};
+		}
+	},
+	async deleteLecture(lectureId) {
+		try {
+			const deletedLecture = await Lecture.findByIdAndDelete(lectureId);
+			return deletedLecture;
+		} catch (error) {
+			console.log({ error });
+			return {};
+		}
+	},
+	async findLectureAndUpdate(lectureId, data) {
+		const { id: episodeId } = data;
+		try {
+			const updatedLecture = await Lecture.findOneAndUpdate(
+				{ _id: lectureId },
+				{ $push: { episodes: episodeId } },
+				{ new: true }
+			);
+			return updatedLecture;
 		} catch (error) {
 			console.log({ error });
 			return {};
