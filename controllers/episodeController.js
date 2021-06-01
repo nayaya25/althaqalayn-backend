@@ -2,6 +2,7 @@ const path = require("path");
 const { v4: uuidv4 } = require("uuid");
 const { s3Bucket } = require("../config/envVariables");
 const { episodeService, lectureService, awsService } = require("../services");
+const { getFileName } = require("../helpers");
 
 const getAllEpisodes = async (req, res) => {
 	try {
@@ -56,7 +57,7 @@ const createEpisode = async (req, res) => {
 
 		episodeData.filePath = Location;
 		const newEpisode = await episodeService.createEpisode(episodeData);
-		const lecture = await lectureService.findLectureAndUpdate(lectureId, {
+		await lectureService.findLectureAndUpdate(lectureId, {
 			id: newEpisode._id,
 		});
 		res.status(200).json({
@@ -91,10 +92,21 @@ const deleteEpisode = async (req, res) => {
 	const { id } = req.params;
 	try {
 		const deletedEpisode = await episodeService.deleteEpisode(id);
+		const { filePath } = deletedEpisode;
+
+		const fileName = await getFileName(filePath);
+
+		const params = {
+			Bucket: s3Bucket,
+			Key: `${fileName}`,
+		};
+		const delInfo = await awsService.deleteFileFromBucket(params);
+		const { status } = delInfo;
 		res.status(200).json({
 			status: "success",
 			message: "Lecture Deletion Successful",
 			episode: deletedEpisode,
+			fileDeleteStatus: status === "success" ? "successfull" : "unsuccessfull",
 		});
 	} catch (error) {
 		console.log({ error });

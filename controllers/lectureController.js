@@ -40,7 +40,7 @@ const createLecture = async (req, res) => {
 	};
 	try {
 		const newLecture = await lectureService.createLecture(lecture);
-		const category = await categoryService.findCategoryAndUpdate(categoryId, {
+		await categoryService.findCategoryAndUpdate(categoryId, {
 			id: newLecture._id,
 		});
 		res.status(200).json({

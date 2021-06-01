@@ -20,10 +20,21 @@ s3.createBucket(bucketCreateParam, function (err, data) {
 	} else if (err) {
 		console.log({ err });
 	} else {
-		console.log(data);
 		console.log("Bucket Created Successfully", data.Location);
 	}
 });
+
+const deleteFileFromBucket = async (params) => {
+	return new Promise((resolve, reject) => {
+		s3.deleteObject(params, function (err, data) {
+			if (err) {
+				console.log({ err });
+				return reject({ status: "error", ...err });
+			}
+			return resolve({ status: "success", ...data });
+		});
+	});
+};
 
 const saveFileInBucket = async (params) => {
 	return new Promise((resolve, reject) => {
@@ -39,4 +50,5 @@ const saveFileInBucket = async (params) => {
 
 module.exports = {
 	saveFileInBucket,
+	deleteFileFromBucket,
 };
