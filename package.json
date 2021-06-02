@@ -4,7 +4,7 @@
 	"description": "Sheikh Hamzah Lectures, Presentations, and Lessons",
 	"main": "index.js",
 	"scripts": {
-		"start": "pm2 restart --env production",
+		"start": "node index.js",
 		"dev": "nodemon index.js"
 	},
 	"repository": {
