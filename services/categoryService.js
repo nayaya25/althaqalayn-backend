@@ -3,7 +3,7 @@ const { Category } = require("../models");
 module.exports = {
 	async getAllCategories() {
 		try {
-			const categories = await Category.find();
+			const categories = await Category.find().populate("lectures");
 			return categories;
 		} catch (error) {
 			console.log({ error });
@@ -52,6 +52,17 @@ module.exports = {
 				{ new: true }
 			);
 			return updatedCategory;
+		} catch (error) {
+			console.log({ error });
+			return {};
+		}
+	},
+	async getACategory(categoryId) {
+		try {
+			const category = await Category.findOne({ _id: categoryId }).populate(
+				"lectures"
+			);
+			return category;
 		} catch (error) {
 			console.log({ error });
 			return {};

@@ -3,7 +3,7 @@ const { Lecture } = require("../models");
 module.exports = {
 	async getAllLectures() {
 		try {
-			const lectures = await Lecture.find();
+			const lectures = await Lecture.find().populate("episodes");
 			return lectures;
 		} catch (error) {
 			console.log({ error });
@@ -50,6 +50,17 @@ module.exports = {
 				{ new: true }
 			);
 			return updatedLecture;
+		} catch (error) {
+			console.log({ error });
+			return {};
+		}
+	},
+	async getALecture(lectureId) {
+		try {
+			const lecture = await Lecture.findOne({ _id: lectureId }).populate(
+				"episodes"
+			);
+			return lecture;
 		} catch (error) {
 			console.log({ error });
 			return {};

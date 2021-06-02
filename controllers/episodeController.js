@@ -104,7 +104,7 @@ const deleteEpisode = async (req, res) => {
 		const { status } = delInfo;
 		res.status(200).json({
 			status: "success",
-			message: "Lecture Deletion Successful",
+			message: "Episode Deletion Successful",
 			episode: deletedEpisode,
 			fileDeleteStatus: status === "success" ? "successfull" : "unsuccessfull",
 		});
@@ -117,7 +117,7 @@ const deleteEpisode = async (req, res) => {
 const getAnEpisode = async (req, res) => {
 	const { id } = req.params;
 	try {
-		const episode = await Episode.findOne({ _id: id });
+		const episode = await episodeService.getAnEpisode(id);
 		res.status(200).json({
 			status: "success",
 			message: "Episode Fetch Successful",

@@ -41,4 +41,13 @@ module.exports = {
 			return {};
 		}
 	},
+	async getAnEpisode(episodeId) {
+		try {
+			const episode = await Episode.findOne({ _id: episodeId });
+			return episode;
+		} catch (error) {
+			console.log({ error });
+			return {};
+		}
+	},
 };
