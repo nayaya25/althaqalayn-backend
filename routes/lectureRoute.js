@@ -13,6 +13,6 @@ router.get("/", getAllLectures);
 router.get("/:id", getALecture);
 router.post("/:categoryId", createLecture);
 router.put("/:id", updateLecture);
-router.delete("/:id", deleteLecture);
+router.delete("/:id/:categoryId", deleteLecture);
 
 module.exports = router;

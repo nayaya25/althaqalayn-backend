@@ -89,9 +89,9 @@ const updateEpisode = async (req, res) => {
 };
 
 const deleteEpisode = async (req, res) => {
-	const { id } = req.params;
+	const { id, lectureId } = req.params;
 	try {
-		const deletedEpisode = await episodeService.deleteEpisode(id);
+		const deletedEpisode = await episodeService.deleteEpisode(id, lectureId);
 		const { filePath } = deletedEpisode;
 
 		const fileName = await getFileName(filePath);

@@ -1,4 +1,4 @@
-const { Episode } = require("../models");
+const { Episode, Lecture } = require("../models");
 
 module.exports = {
 	async getAllEpisodes() {
@@ -32,9 +32,13 @@ module.exports = {
 			return {};
 		}
 	},
-	async deleteEpisode(episodeId) {
+	async deleteEpisode(episodeId, lectureId) {
 		try {
 			const deletedEpisode = await Episode.findOneAndDelete({ _id: episodeId });
+			await Lecture.findOneAndUpdate(
+				{ _id: lectureId },
+				{ $pull: { episodes: episodeId } }
+			);
 			return deletedEpisode;
 		} catch (error) {
 			console.log({ error });

@@ -1,4 +1,4 @@
-const { Category } = require("../models");
+const { Category, Lecture, Episode } = require("../models");
 
 module.exports = {
 	async getAllCategories() {
@@ -37,6 +37,12 @@ module.exports = {
 			const deletedCategory = await Category.findOneAndDelete({
 				_id: categoryId,
 			});
+			const { lectures } = deletedCategory;
+			for (const lectureId of lectures) {
+				const { episodes } = await Lecture.findOne({ _id: lectureId });
+				await Episode.deleteMany({ _id: { $in: episodes } });
+			}
+			await Lecture.deleteMany({ _id: { $in: lectures } });
 			return deletedCategory;
 		} catch (error) {
 			console.log({ error });

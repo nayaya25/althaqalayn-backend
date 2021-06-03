@@ -72,9 +72,9 @@ const updateLecture = async (req, res) => {
 };
 
 const deleteLecture = async (req, res) => {
-	const { id } = req.params;
+	const { id, categoryId } = req.params;
 	try {
-		const deletedLecture = await lectureService.deleteLecture(id);
+		const deletedLecture = await lectureService.deleteLecture(id, categoryId);
 		res.status(200).json({
 			status: "success",
 			message: "Lecture Deletion Successful",

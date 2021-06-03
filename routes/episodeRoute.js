@@ -13,6 +13,6 @@ router.get("/", getAllEpisodes);
 router.get("/:id", getAnEpisode);
 router.post("/:lectureId", createEpisode);
 router.put("/:id", updateEpisode);
-router.delete("/:id", deleteEpisode);
+router.delete("/:id:/lectureId", deleteEpisode);
 
 module.exports = router;
