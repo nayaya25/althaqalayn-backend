@@ -32,7 +32,7 @@ const getARole = async (req, res) => {
 const createRole = async (req, res) => {
 	const { name } = req.body;
 	try {
-		const newRole = await roleService.createRole(name);
+		const newRole = await roleService.createRole({ name });
 		res.status(200).json({
 			status: "success",
 			message: "Role Creation Successful",

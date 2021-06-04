@@ -66,13 +66,45 @@ const checkRole = async (req, res, next) => {
 const isAdmin = async (req, res, next) => {
 	const { userId } = req;
 	try {
-		const user = await User.findOne({ _id: userId });
-		const { role } = user;
-		console.log({ role });
-		if (!role === "admin")
+		const { role } = await User.findOne({ _id: userId }).populate("role");
+
+		if (!role)
+			return res.status(404).json({
+				status: "error",
+				message: "User Not Found. Check The user ID provided",
+			});
+
+		const { name } = role;
+		console.log({ name });
+		if (name !== "admin")
 			return res.status(403).json({
 				status: "error",
-				message: `You have '${role}' privileges. Only Admin can Access these.`,
+				message: `You have '${name}' User privileges. Only Admin can Access these.`,
+			});
+
+		next();
+	} catch (error) {
+		console.log({ error });
+		res.status(500).json({ status: "error", message: "Something Went Wrong" });
+	}
+};
+
+const isSuperAdmin = async (req, res, next) => {
+	const { userId } = req;
+	try {
+		const { role } = await User.findOne({ _id: userId }).populate("role");
+
+		if (!role)
+			return res.status(404).json({
+				status: "error",
+				message: "User Not Found. Check The user ID provided",
+			});
+
+		const { name } = role;
+		if (name !== "super-admin")
+			return res.status(403).json({
+				status: "error",
+				message: `You have '${name}' User privileges. Only Super Admin can Access these.`,
 			});
 
 		next();

@@ -81,6 +81,11 @@ const registerUser = async (req, res) => {
 		});
 	} catch (error) {
 		console.log({ error });
+		if (error.code === 11000)
+			return res.status(500).json({
+				status: "error",
+				message: `User with Email/Phone '${emailAddress}/${phoneNumber}' already created`,
+			});
 		res.status(500).json({ status: "error", message: "Server Error" });
 	}
 };
