@@ -8,11 +8,12 @@ const {
 	deleteEpisode,
 	getAnEpisode,
 } = require("../controllers/episodeController");
+const { verifyToken, isAdmin } = require("../middlewares");
 
 router.get("/", getAllEpisodes);
 router.get("/:id", getAnEpisode);
-router.post("/:lectureId", createEpisode);
-router.put("/:id", updateEpisode);
-router.delete("/:id:/lectureId", deleteEpisode);
+router.post("/:lectureId", verifyToken, isAdmin, createEpisode);
+router.put("/:id", verifyToken, isAdmin, updateEpisode);
+router.delete("/:id:/lectureId", verifyToken, isAdmin, deleteEpisode);
 
 module.exports = router;

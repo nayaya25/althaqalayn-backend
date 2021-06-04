@@ -27,6 +27,11 @@ const createCategory = async (req, res) => {
 		});
 	} catch (error) {
 		console.log({ error });
+		if (error.code === 11000)
+			return res.status(500).json({
+				status: "error",
+				message: `Category with name '${name}' already created`,
+			});
 		res.status(500).json({ status: "error", message: "Server Error" });
 	}
 };

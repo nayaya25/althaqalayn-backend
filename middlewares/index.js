@@ -64,10 +64,11 @@ const checkRole = async (req, res, next) => {
 };
 
 const isAdmin = async (req, res, next) => {
-	const { userId } = req.body;
+	const { userId } = req;
 	try {
 		const user = await User.findOne({ _id: userId });
 		const { role } = user;
+		console.log({ role });
 		if (!role === "admin")
 			return res.status(403).json({
 				status: "error",

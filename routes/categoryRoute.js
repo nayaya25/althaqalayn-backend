@@ -8,11 +8,12 @@ const {
 	deleteCategory,
 	getACategory,
 } = require("../controllers/categoryController");
+const { verifyToken, isAdmin } = require("../middlewares");
 
 router.get("/", getAllCategories);
 router.get("/:id", getACategory);
-router.post("/", createCategory);
-router.put("/:id", updateCategory);
-router.delete("/:id", deleteCategory);
+router.post("/", verifyToken, isAdmin, createCategory);
+router.put("/:id", verifyToken, isAdmin, updateCategory);
+router.delete("/:id", verifyToken, isAdmin, deleteCategory);
 
 module.exports = router;

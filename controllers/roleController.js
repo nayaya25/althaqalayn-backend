@@ -40,6 +40,11 @@ const createRole = async (req, res) => {
 		});
 	} catch (error) {
 		console.log({ error });
+		if (error.code === 11000)
+			return res.status(500).json({
+				status: "error",
+				message: `Role with name '${name}' already created`,
+			});
 		res.status(500).json({ status: "error", message: "Server Error" });
 	}
 };

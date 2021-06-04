@@ -8,11 +8,12 @@ const {
 	deleteLecture,
 	getALecture,
 } = require("../controllers/lectureController");
+const { verifyToken, isAdmin } = require("../middlewares");
 
 router.get("/", getAllLectures);
 router.get("/:id", getALecture);
-router.post("/:categoryId", createLecture);
-router.put("/:id", updateLecture);
-router.delete("/:id/:categoryId", deleteLecture);
+router.post("/:categoryId", verifyToken, isAdmin, createLecture);
+router.put("/:id", verifyToken, isAdmin, updateLecture);
+router.delete("/:id/:categoryId", verifyToken, isAdmin, deleteLecture);
 
 module.exports = router;

@@ -6,8 +6,9 @@ const schema = {
 	phoneNumber: {
 		type: db.SchemaTypes.String,
 		required: true,
+		unique: true,
 	},
-	emailAddress: { type: db.SchemaTypes.String },
+	emailAddress: { type: db.SchemaTypes.String, unique: true },
 	password: { type: db.SchemaTypes.String },
 	role: { type: db.SchemaTypes.ObjectId, ref: "Role" },
 	createdAt: { type: db.SchemaTypes.Date, default: Date.now },

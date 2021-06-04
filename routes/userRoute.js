@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
-const { userController, roleController } = require("../controllers");
+const { userController } = require("../controllers");
+const { verifyToken, isAdmin } = require("../middlewares");
 const {
 	getAllUsers,
 	getAUser,
@@ -15,9 +16,9 @@ const {
 router.get("/", getAllUsers);
 router.post("/login", loginUser);
 router.post("/register", registerUser);
-router.get("/:id", getAUser);
-router.post("/", createUser);
-router.put("/:userId", updateUser);
-router.delete("/:userId", deleteUser);
+router.get("/:id", verifyToken, isAdmin, getAUser);
+router.post("/", verifyToken, isAdmin, createUser);
+router.put("/:userId", verifyToken, isAdmin, updateUser);
+router.delete("/:userId", verifyToken, isAdmin, deleteUser);
 
 module.exports = router;
